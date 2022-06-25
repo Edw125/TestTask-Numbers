@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<main>
+  <div class="container py-5">
+    <h1>
+      {{ text }}
+    </h1>
+    <hr>
+    {% if user.is_authenticated %}
+    <table>
+      <tr>
+        <th>№</th>
+        <th>Заказ</th>
+        <th>Цена в USD</th>
+        <th>Цена в RUB</th>
+        <th>Срок доставки</th>
+      </tr>
+    {% for row in page_obj %}
+    <tr>
+        <td>{{ row.number }}</td>
+        <td>{{ row.order_name }}</td>
+        <td>{{ row.price_usd }}</td>
+        <td>{{ row.price_rub }}</td>
+        <td>{{ row.delivery_period }}</td>
+    </tr>
+    {% endfor %}
+      </table>
+    {% else %}
+       <h1>You must authenticate gsheets at /gsheets/authorize/ before usage</h1>
+    {% endif %}
+  </div>
+</main>
+{% endblock %}
